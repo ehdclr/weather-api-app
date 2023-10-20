@@ -11,6 +11,7 @@ export const currentDataController = {
       let curCity = "서울특별시";
       //service 로직
       let result = await forecastService.getCurrentData(curCity);
+    
       return res.status(200).json(successResponse(`${curCity}지역의 현재 실시간 초실황 데이터 입니다.`,result,200));
     } catch (err) {
         next(err);

@@ -4,7 +4,7 @@ import { fetchCurrentWeatherData } from "../utils/currentWeatherData.js";
 import { dfs_xy_conv } from "../utils/locationConverter.js";
 
 export const startCronJobs = () => {
-  //초단기 실황 데이터 cron 작업 
+  //초단기 실황 데이터 cron 작업  (10분마다 데이터 업데이트 된다했으니 수정)
   cron.schedule(
     "0 */10 * * * *",
     async () => {
