@@ -1,0 +1,15 @@
+// {
+//     "extends": ["google"],
+//     "parserOptions": {
+//       "ecmaVersion": 2020,
+//       "sourceType": "module"
+//     },
+//     "env": {
+//       "node": true,
+//       "es6": true
+//     },
+//     "rules": {
+//       "new-cap": ["error", {"capIsNew": false}]
+//     }
+//   }
+  
