@@ -2,6 +2,7 @@
 ```
 weatherapi
 ├─ .eslintrc.json
+├─ README.md
 ├─ apis
 │  └─ currentData
 │     ├─ forcast.service.js
@@ -12,8 +13,6 @@ weatherapi
 │  ├─ database.js
 │  ├─ logger.js
 │  └─ swagger.js
-├─ cron
-│  └─ cronManager.js
 ├─ docs
 │  └─ forecast.swagger.js
 ├─ middleware
@@ -22,19 +21,25 @@ weatherapi
 ├─ models
 │  ├─ current.model.js
 │  ├─ region.model.js
-│  └─ schemas
+│  └─ utrSrt.model.js
 ├─ package-lock.json
 ├─ package.json
 ├─ routes
 │  └─ forecast.router.js
 ├─ server.js
 └─ utils
-   ├─ currentWeatherData.js
-   ├─ fetchRequest.js
+   ├─ cron
+   │  └─ cronManager.js
+   ├─ data
+   │  └─ locationData.xlsx
+   ├─ fetchData
+   │  ├─ currentWeatherData.js
+   │  └─ fetchRequest.js
    ├─ getBaseTime.js
    ├─ httpErrors.js
-   ├─ httpSuccess.js
-   ├─ locationConverter.js
+   ├─ location
+   │  ├─ locationConverter.js
+   │  └─ locationUtils.js
    ├─ response.js
    └─ responseValidation.js
 

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const regionSchema = new mongoose.Schema({
   regionName: {
@@ -9,11 +9,11 @@ const regionSchema = new mongoose.Schema({
   currentDatas: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'CurrentData',
+      ref: "CurrentData",
     },
   ],
-});
+},{versionKey:false});
 
-const RegionModel = mongoose.model('Region', regionSchema);
+const RegionModel = mongoose.model("Region", regionSchema);
 
 export default RegionModel;

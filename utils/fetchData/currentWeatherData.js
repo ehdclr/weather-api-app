@@ -1,20 +1,20 @@
-import logger from "../config/logger.js";
-import CurrentDataModel from "../models/current.model.js";
-import RegionModel from "../models/region.model.js";
+import logger from "../../config/logger.js";
+import CurrentDataModel from "../../models/current.model.js";
+import RegionModel from "../../models/region.model.js";
 import fetchRequest from "./fetchRequest.js";
-import { getCurrentApiDateAndTime } from "./getBaseTime.js";
+import { getCurrentApiDateAndTime } from "../getBaseTime.js";
 
-// 초실황 예보 서비스
 export const fetchCurrentWeatherData = async (city, nx, ny) => {
   try {
     const SERVICE_KEY = process.env.WEATHER_API_SERVICE_KEY;
     let { baseTime, baseDate } = getCurrentApiDateAndTime();
-    let API_ENDPOINT = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
+    const API_ENDPOINT = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
     const fetchedData = await fetchRequest.fetchData(API_ENDPOINT);
     const region = await RegionModel.findOne({ regionName: city });
 
     if (!fetchedData || !fetchedData.response || !fetchedData.response.body) {
-      logger.error("공공 날씨 API를 fetch에 실패하였습니다!"); // 에러 로깅
+      logger.error("공공 날씨 API를 fetch에 실패하였습니다![초단기 실황 데이터]"); // 에러 로깅
+      return;
     }
     const currentDataItems = fetchedData.response.body.items.item;
 
@@ -47,6 +47,7 @@ export const fetchCurrentWeatherData = async (city, nx, ny) => {
     const savedCurrentData = await currentData.save();
     savedCurrentDataItems.push(savedCurrentData._id);
 
+    //굳이 지역 데이터에 populate 할 필요가 있나? -> 의문
     if (!region) {
       const newRegion = new RegionModel({
         regionName: city,
@@ -60,6 +61,6 @@ export const fetchCurrentWeatherData = async (city, nx, ny) => {
       logger.info("초단기 실황 데이터를 성공적으로 저장했습니다. (누적)"); // 성공 로깅
     }
   } catch (err) {
-    logger.error(`createCurrentWeather 오류: ${err.message}`); // 에러 로깅
+    logger.error(`fetchCurrentWeather 오류: ${err.message}`); // 에러 로깅
   }
 };

@@ -1,5 +1,5 @@
 import express from 'express';
-import { currentDataController } from '../apis/currentData/forecast.controller.js';
+import { forecastController } from '../apis/currentData/forecast.controller.js';
 
 const router = express.Router();
 
@@ -7,10 +7,17 @@ const router = express.Router();
  * @swagger
  * tags:
  *   name: forecast
- *   descripiton: 해당 지역의 초단기, 단기 초실황에 관련된 라우터 
+ *   descripiton: 일기예보 api 요청
  */
 
-// 현재 위치의 실시간 데이터 정보
-router.get('/currentdata', currentDataController.getCurrentData);
+// 위치의 실시간 데이터 정보
+router.get('/forecast/:city/currentdata', forecastController.getCurrentData);
+
+// 위치의 초단기 데이터 정보
+router.get('/forecast/:city/utrsrtdata',forecastController.getUtrSrtData);
+
+// 위치의 단기 데이터 정도
+router.get('/forecast/:city/srt-termdata',forecastController.getSrtTermData);
+
 
 export default router;

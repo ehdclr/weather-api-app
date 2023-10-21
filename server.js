@@ -1,6 +1,6 @@
 import http from 'http';
 import app from './app.js';
-import { startCronJobs } from './cron/cronManager.js';
+import { startCronJobs } from './utils/cron/cronManager.js';
 
 
 const PORT = process.env.PORT || 3000;

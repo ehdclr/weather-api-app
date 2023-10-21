@@ -27,7 +27,7 @@ const currentDataSchema = new mongoose.Schema({
       _id: false,
     },
   ],
-});
+},{versionKey: false});
 
 const CurrentDataModel = mongoose.model("CurrentData", currentDataSchema);
 

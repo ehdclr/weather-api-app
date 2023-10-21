@@ -1,3 +1,5 @@
+import {getLatitudeAndLongitude} from "./locationUtils.js";
+
 const RE = 6371.00877; // 지구 반경(km)
 const GRID = 5.0; // 격자 간격(km)
 const SLAT1 = 30.0; // 투영 위도1(degree)
@@ -63,4 +65,3 @@ export const dfs_xy_conv = (code, v1, v2) => {
     }
     return rs;
 };
-
