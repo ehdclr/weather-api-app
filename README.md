@@ -73,17 +73,15 @@ weatherapi
   <summary><h3>예보 데이터 API</h3></summary>
   <div markdown="1">
     <ul>
-      <li>초단기 실황 데이터 - 1시간 기준으로 공공 api 요청 (node-cron)사용  </li>
        <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/da559061-8af1-4967-af97-5f18a282a728" width=70%>
        <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/1b3f0f56-84bc-4b72-9d90-6cae7c59490c" width=70%>
-      <p>서울시, 경기도, 제주도 초단기 실황 데이터를 1시간 기준으로 누적 (매 시간 40분마다 api 요청 제공) cron으로 주기적으로 데이터 요청</p>
-
+      <li>초단기 실황 데이터 - 1시간 기준으로 공공 api 요청 (node-cron)사용  </li>
+       <p>서울시, 경기도, 제주도 초단기 실황 데이터를 1시간 기준으로 누적 (매 시간 40분마다 api 요청 제공) cron으로 주기적으로 데이터 요청</p>
+      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/b9a1bf0c-5c66-419d-b8f1-583c06acaa04" width=70%>
       <li>초단기 데이터 - 1시간 기준으로 공공 api 요청</li>
-      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/11158362-23a7-48a7-b489-28fb59e2f72d" width=70%>
       <p>단기 예보 데이터 1시간 기준으로 업데이트 (매 시간 45분마다 api 요청 제공)</p>
-
-      <li>단기 예보 데이터 - 3시간 기준으로 공공 api 요청</li>
       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/391127e0-d57d-400e-84a0-4be5c6c7714f" width=70%>
+      <li>단기 예보 데이터 - 3시간 기준으로 공공 api 요청</li>
       <p>단기 예보 데이터 3시간 기준으로 업데이트</p>
     </ul>
   </div>
