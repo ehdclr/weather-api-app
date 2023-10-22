@@ -18,8 +18,6 @@ import {
 export const getCurrentData = async (city) => {
   try {
     let cityFullName = getCityFullName(city);
-    let { lat, lng } = getLatitudeAndLongitude(cityFullName);
-    let { x, y } = dfs_xy_conv("toXY", lat, lng);
     const cacheKey = `currentWeather_${cityFullName}`;
     let currentWeatherData = await getCacheData(cacheKey);
 
@@ -28,9 +26,12 @@ export const getCurrentData = async (city) => {
       currentWeatherData = await CurrentDataModel.findOne({
         cityName: cityFullName,
       }).sort({ fcstDate: -1, fcstTime: -1 });
+      await setCacheData(cacheKey,currentWeatherData,3600);
     }
     // 데이터베이스에도 없다면, 다시 fetch 하는 로직
     if (!currentWeatherData) {
+      let { lat, lng } = getLatitudeAndLongitude(cityFullName);
+      let { x, y } = dfs_xy_conv("toXY", lat, lng);
       await fetchCurrentWeatherData(cityFullName, x, y);
       currentWeatherData = await CurrentDataModel.findOne({
         cityName: cityFullName,
@@ -159,9 +160,13 @@ export const getSrtTermData = async (city) => {
 };
 
 //TODO 일자별 날짜 데이터 (단기 일보 데이터에서 5일치 가져옴) -> 일단
+//일자별 최고 기온 최저 기온 최고기온은 1700에 최저기온은 0600에 나옴 
+
+
 
 //TODO 오늘 하루 00시부터 24시까지 시간대별 날씨 정보 보여주는 것
 // 초실황일보(데이터베이스에 누적저장한것 (현재시간까지)) + 단기일보 합친거 보여주면될듯 -> 여기서 겹치는 시간 빼고
 
 
 //TODO 내일의 날씨 정보를 카카오톡으로 알림 보내는 로직 
+//최저 기온 최고기온을 보내주고, 강수확률 6~12시 사이의 강수확률과 SKY 보여줌 -> 요약 하기 
