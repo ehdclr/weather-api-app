@@ -6,27 +6,17 @@ const currentDataSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  baseDate: {
+  fcstDate: {
     type: String,
     required: true,
   },
-  baseTime: {
+  fcstTime: {
     type: String,
     required: true,
   },
-  weatherData: [
-    {
-      category: {
-        type: String,
-        required: true,
-      },
-      obsrValue: {
-        type: String,
-        required: true,
-      },
-      _id: false,
-    },
-  ],
+  weatherData: {
+    type: Object,
+  }
 },{versionKey: false});
 
 const CurrentDataModel = mongoose.model("CurrentData", currentDataSchema);

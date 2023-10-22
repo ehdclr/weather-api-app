@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /forecast/{city}/utrsrtdata:
+ * /api/forecasts/utrsrt:
  *   get:
  *     tags:
  *       - Forecast
@@ -8,7 +8,7 @@
  *     description: 특정 도시에 대한 현재의 초단기 날씨 정보를 가져옵니다.
  *     parameters:
  *       - name: city
- *         in: path
+ *         in: query
  *         description: 조회할 도시의 이름
  *         required: true
  *         type: string
@@ -31,32 +31,48 @@
  *                   type: string
  *                   example: 서울특별시지역의 현재 초단기 데이터 입니다.
  *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       cityName:
- *                         type: string
- *                         example: 서울특별시
- *                       fcstDate:
- *                         type: string
- *                         example: 20231022
- *                       fcstTime:
- *                         type: string
- *                         example: 0200
- *                       weatherData:
- *                         type: array
- *                         items:
+ *                   type: object
+ *                   properties:
+ *                     cityName:
+ *                       type: string
+ *                       example: 서울특별시
+ *                     forecast:
+ *                       type: object
+ *                       properties: 
+ *                         fcstDate:
  *                           type: object
  *                           properties:
- *                             category:
- *                               type: string
- *                               example: LGT
- *                             fcstValue:
- *                               type: string
- *                               example: 0
+ *                             fcstTime:
+ *                               $ref: '#/components/schemas/ForecastTime'
+ *                             
  *       400:
  *         description: 잘못된 요청
  *       404:
  *         description: 데이터를 찾을 수 없음
+ *
+ * components:
+ *   schemas:
+ *     ForecastTime:
+ *       type: object
+ *       properties:
+ *         LGT:
+ *           type: string
+ *         PTY:
+ *           type: string
+ *         RN1:
+ *           type: string
+ *         SKY:
+ *           type: string
+ *         T1H:
+ *           type: string
+ *         REH:
+ *           type: string
+ *         UUU:
+ *           type: string
+ *         VVV:
+ *           type: string
+ *         VEC:
+ *           type: string
+ *         WSD:
+ *           type: string
  */

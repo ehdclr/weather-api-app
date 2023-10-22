@@ -3,6 +3,7 @@ import CurrentDataModel from "../../models/current.model.js";
 import RegionModel from "../../models/region.model.js";
 import fetchRequest from "./fetchRequest.js";
 import { getCurrentApiDateAndTime } from "../getBaseTime.js";
+import { setCacheData } from "../cache/redisCache.js";
 
 export const fetchCurrentWeatherData = async (city, nx, ny) => {
   try {
@@ -11,6 +12,7 @@ export const fetchCurrentWeatherData = async (city, nx, ny) => {
     const API_ENDPOINT = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
     const fetchedData = await fetchRequest.fetchData(API_ENDPOINT);
     const region = await RegionModel.findOne({ regionName: city });
+    const cacheKey = `currentWeather_${city}`;
 
     if (!fetchedData || !fetchedData.response || !fetchedData.response.body) {
       logger.error("공공 날씨 API를 fetch에 실패하였습니다![초단기 실황 데이터]"); // 에러 로깅
@@ -20,8 +22,8 @@ export const fetchCurrentWeatherData = async (city, nx, ny) => {
 
     const existingData = await CurrentDataModel.findOne({
       cityName: city,
-      baseDate: currentDataItems[0].baseDate,
-      baseTime: currentDataItems[0].baseTime,
+      fcstDate: currentDataItems[0].baseDate,
+      fcstTime: currentDataItems[0].baseTime,
     });
 
     if (existingData) {
@@ -29,22 +31,20 @@ export const fetchCurrentWeatherData = async (city, nx, ny) => {
       return;
     }
 
-    const weatherData = [];
+    const weatherData = {};
     const savedCurrentDataItems = [];
     for (let item of currentDataItems) {
-      weatherData.push({
-        category: item.category,
-        obsrValue: item.obsrValue,
-      });
+      weatherData[item.category]= item.obsrValue;
     }
 
     const currentData = new CurrentDataModel({
       cityName: city,
-      baseDate: currentDataItems[0].baseDate,
-      baseTime: currentDataItems[0].baseTime,
+      fcstDate: currentDataItems[0].baseDate,
+      fcstTime: currentDataItems[0].baseTime,
       weatherData: weatherData,
     });
     const savedCurrentData = await currentData.save();
+    await setCacheData(cacheKey,savedCurrentData,3600)
     savedCurrentDataItems.push(savedCurrentData._id);
 
     //굳이 지역 데이터에 populate 할 필요가 있나? -> 의문

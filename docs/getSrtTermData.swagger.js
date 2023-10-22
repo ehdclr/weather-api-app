@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /forecast/{city}/srt-termdata:
+ * /api/forecasts/srt-term:
  *   get:
  *     tags:
  *       - Forecast
@@ -8,7 +8,7 @@
  *     description: 선택한 도시에 대한 단기 날씨 예보 정보를 가져옵니다.
  *     parameters:
  *       - name: city
- *         in: path
+ *         in: query
  *         description: 조회할 도시의 이름
  *         required: true
  *         type: string
@@ -31,32 +31,66 @@
  *                   type: string
  *                   example: 경상남도지역의 단기 예보 데이터 입니다.
  *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       cityName:
- *                         type: string
- *                         example: 경상남도
- *                       fcstDate:
- *                         type: string
- *                         example: 20231022
- *                       fcstTime:
- *                         type: string
- *                         example: 0300
- *                       weatherData:
- *                         type: array
- *                         items:
- *                           type: object
- *                           properties:
- *                             category:
- *                               type: string
- *                               example: TMP
- *                             fcstValue:
- *                               type: string
- *                               example: 7
+ *                   type: object
+ *                   properties:
+ *                     cityName:
+ *                       type: string
+ *                       example: 경상남도
+ *                     forecast:
+ *                       type: object
+ *                       properties:
+ *                          fcstDate:
+ *                              type: object
+ *                              properties:
+ *                                  fcstTime:
+ *                                      $ref: '#/components/schemas/ForecastTime'
+ *                         
  *       400:
  *         description: 잘못된 요청
  *       404:
  *         description: 데이터를 찾을 수 없음
+ * 
+ * 
+ * components:
+ *   schemas:
+ *     ForecastTime:
+ *       type: object
+ *       properties:
+ *         TMP:
+ *           type: string
+ *           example: "17"
+ *         UUU:
+ *           type: string
+ *           example: "0.7"
+ *         VVV:
+ *           type: string
+ *           example: "1.3"
+ *         VEC:
+ *           type: string
+ *           example: "208"
+ *         WSD:
+ *           type: string
+ *           example: "1.5"
+ *         SKY:
+ *           type: string
+ *           example: "1"
+ *         PTY:
+ *           type: string
+ *           example: "0"
+ *         POP:
+ *           type: string
+ *           example: "0"
+ *         WAV:
+ *           type: string
+ *           example: "0"
+ *         PCP:
+ *           type: string
+ *           example: "강수없음"
+ *         REH:
+ *           type: string
+ *           example: "65"
+ *         SNO:
+ *           type: string
+ *           example: "적설없음"
  */
+

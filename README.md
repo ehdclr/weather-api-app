@@ -11,6 +11,7 @@ weatherapi
 │  ├─ config.js
 │  ├─ database.js
 │  ├─ logger.js
+│  ├─ redis.js
 │  └─ swagger.js
 ├─ docs
 │  ├─ getCurrentData.swagger.js
@@ -28,6 +29,8 @@ weatherapi
 │  └─ forecast.router.js
 ├─ server.js
 └─ utils
+   ├─ cache
+   │  └─ redisCache.js
    ├─ cron
    │  └─ cronManager.js
    ├─ data

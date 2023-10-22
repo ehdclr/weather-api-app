@@ -1,5 +1,4 @@
 import swaggerJsdoc from 'swagger-jsdoc';
-import path from 'path';
 
 const swaggerOptions = {
   swaggerDefinition: {
@@ -11,7 +10,7 @@ const swaggerOptions = {
     },
     basePath: '/',
   },
-  apis: ['./docs/*.swagger.js'], // 절대 경로 사용
+  apis: ['./docs/*.swagger.js'], 
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);

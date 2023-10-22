@@ -11,13 +11,13 @@ const router = express.Router();
  */
 
 // 위치의 실시간 데이터 정보
-router.get('/forecast/:city/currentdata', forecastController.getCurrentData);
+router.get('/forecasts/current', forecastController.getCurrentData);
 
 // 위치의 초단기 데이터 정보
-router.get('/forecast/:city/utrsrtdata',forecastController.getUtrSrtData);
+router.get('/forecasts/utrsrt',forecastController.getUtrSrtData);
 
 // 위치의 단기 데이터 정도
-router.get('/forecast/:city/srt-termdata',forecastController.getSrtTermData);
+router.get('/forecasts/srt-term',forecastController.getSrtTermData);
 
 
 export default router;
