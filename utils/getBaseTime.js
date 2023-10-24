@@ -11,9 +11,11 @@ export function getCurrentApiDateAndTime() {
   if (minutes < 40) {
     if (hours === 0) {
       now.setDate(day - 1);
-      day = now.getDate() - 1;
+      day = now.getDate();
+      hours = 23;
+    } else {
+      hours = hours - 1;
     }
-    hours = hours - 1;
   }
   let baseTime = `${hours < 10 ? "0" : ""}${hours}${
     minutes < 10 ? "0" : ""
@@ -41,9 +43,11 @@ export function getUrtShortApiDateAndTime() {
     if (hours === 0) {
       // 자정 이전인 경우, 날짜를 하루 빼야함
       now.setDate(day - 1);
-      day = now.getDate() - 1;
+      day = now.getDate();
+      hours=23;
+    } else {
+      hours = hours - 1;
     }
-    hours = hours - 1;
   }
   //만약 지금 시간이 0039라면 날짜 -1 하고 2339가 되어야함
   let baseTime = `${hours < 10 ? "0" : ""}${hours}${
@@ -86,4 +90,3 @@ export function getShortTermApiDateAndTime() {
     baseTime: "2310",
   };
 }
-

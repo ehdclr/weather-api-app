@@ -40,7 +40,10 @@ export const getCurrentData = async (city) => {
       currentWeatherData = await CurrentDataModel.findOne({
         cityName: cityFullName,
       }).sort({ fcstDate: -1, fcstTime: -1 });
+
     }
+
+    
     const result = {
       cityName: currentWeatherData.cityName,
       forecast: {
@@ -77,6 +80,8 @@ export const getUtrSrtData = async (city) => {
       let { x, y } = dfs_xy_conv("toXY", lat, lng);
       const API_ENDPOINT = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${x}&ny=${y}`;
       const fetchedData = await fetchRequest.fetchData(API_ENDPOINT);
+
+      console.log(baseTime,baseDate,'컹컹')
 
       if (!fetchedData || !fetchedData.response || !fetchedData.response.body) {
         logger.error("공공 날씨 API를 fetch에 실패하였습니다![초단기 데이터]"); // 에러 로깅
