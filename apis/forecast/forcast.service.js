@@ -14,6 +14,10 @@ import {
   getLatitudeAndLongitude,
   getCityFullName,
 } from "../../utils/location/locationUtils.js";
+import validate from "../../utils/responseValidation.js";
+import currentDataSchema from "./schema/currentData.schema.js";
+import shortTermForecastDataSchema from "./schema/shortTermData.schema.js";
+import utrSrtDataSchema from "./schema/utrSrtData.schema.js";
 
 export const getCurrentData = async (city) => {
   try {
@@ -48,9 +52,11 @@ export const getCurrentData = async (city) => {
       },
     };
 
+    //ajv 응답객체 검증 
+    validate(currentDataSchema,result);
+
+    logger.info("초단기 실황 데이터 응답에 성공하였습니다!");
     return result;
-    // TODO 데이터 가공하기 (스키마 구조 작성하기)
-    //! Option ) AJV 응답 작성
   } catch (err) {
     throw err;
   }
@@ -97,6 +103,7 @@ export const getUtrSrtData = async (city) => {
       forecast: groupedByFcstDateAndTime,
     };
 
+    validate(utrSrtDataSchema,result);
     logger.info("초단기 데이터를 불러오는데 성공했습니다.");
     return result;
   } catch (err) {
@@ -152,16 +159,19 @@ export const getSrtTermData = async (city) => {
       resultObj.forecast[fcstDate][fcstTime][category] = fcstValue;
     });
 
+    validate(shortTermForecastDataSchema,resultObj);
+
+    logger.info("단기 데이터 응답에 성공하였습니다!");
     return resultObj;
   } catch (err) {
-    logger.error(`초단기 데이터 오류 : ${err.message}`);
+    logger.error(`단기 데이터 오류 : ${err.message}`);
     throw err;
   }
 };
 
+
 //TODO 일자별 날짜 데이터 (단기 일보 데이터에서 5일치 가져옴) -> 일단
 //일자별 최고 기온 최저 기온 최고기온은 1700에 최저기온은 0600에 나옴 
-
 
 
 //TODO 오늘 하루 00시부터 24시까지 시간대별 날씨 정보 보여주는 것

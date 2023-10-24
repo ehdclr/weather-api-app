@@ -1,6 +1,5 @@
 import logger from "../../config/logger.js";
 import CurrentDataModel from "../../models/current.model.js";
-import RegionModel from "../../models/region.model.js";
 import fetchRequest from "./fetchRequest.js";
 import { getCurrentApiDateAndTime } from "../getBaseTime.js";
 import { setCacheData } from "../cache/redisCache.js";
@@ -11,7 +10,6 @@ export const fetchCurrentWeatherData = async (city, nx, ny) => {
     let { baseTime, baseDate } = getCurrentApiDateAndTime();
     const API_ENDPOINT = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
     const fetchedData = await fetchRequest.fetchData(API_ENDPOINT);
-    const region = await RegionModel.findOne({ regionName: city });
     const cacheKey = `currentWeather_${city}`;
 
     if (!fetchedData || !fetchedData.response || !fetchedData.response.body) {
@@ -32,7 +30,6 @@ export const fetchCurrentWeatherData = async (city, nx, ny) => {
     }
 
     const weatherData = {};
-    const savedCurrentDataItems = [];
     for (let item of currentDataItems) {
       weatherData[item.category]= item.obsrValue;
     }
@@ -45,21 +42,8 @@ export const fetchCurrentWeatherData = async (city, nx, ny) => {
     });
     const savedCurrentData = await currentData.save();
     await setCacheData(cacheKey,savedCurrentData,3600)
-    savedCurrentDataItems.push(savedCurrentData._id);
+    logger.info("초단기 실황 데이터를 성공적으로 저장했습니다.");
 
-    //굳이 지역 데이터에 populate 할 필요가 있나? -> 의문
-    if (!region) {
-      const newRegion = new RegionModel({
-        regionName: city,
-        currentDatas: savedCurrentDataItems,
-      });
-      await newRegion.save();
-      logger.info("초단기 실황 데이터를 성공적으로 저장했습니다.");
-    } else {
-      region.currentDatas.push(...savedCurrentDataItems);
-      await region.save();
-      logger.info("초단기 실황 데이터를 성공적으로 저장했습니다. (누적)"); // 성공 로깅
-    }
   } catch (err) {
     logger.error(`fetchCurrentWeather 오류: ${err.message}`); // 에러 로깅
   }
