@@ -4,10 +4,10 @@ import { fetchCurrentWeatherData } from "../fetchData/currentWeatherData.js";
 import { dfs_xy_conv } from "../location/locationConverter.js";
 import {getLatitudeAndLongitude} from "../location/locationUtils.js";
 
-export const startCronJobs = () => {
+export const startCronJobs = async () => {
   //초단기 실황 데이터 cron 작업  (10분마다 데이터 업데이트 된다했으니 수정)
   cron.schedule(
-    "0 * * * * *",
+    "0 */10 * * * *",
     async () => {
       //node-cron으로 서울 경기 제주 fetch요청 하기
       //서울 -위도

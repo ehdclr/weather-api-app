@@ -21,7 +21,6 @@ export const getLatitudeAndLongitude = (cityName) => {
       };
     }
   }
-
   return null;
 };
 

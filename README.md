@@ -3,9 +3,13 @@
 weatherapi
 ├─ .eslintrc.json
 ├─ apis
-│  └─ currentData
+│  └─ forecast
 │     ├─ forcast.service.js
-│     └─ forecast.controller.js
+│     ├─ forecast.controller.js
+│     └─ schema
+│        ├─ currentData.schema.js
+│        ├─ shortTermData.schema.js
+│        └─ utrSrtData.schema.js
 ├─ app.js
 ├─ config
 │  ├─ config.js

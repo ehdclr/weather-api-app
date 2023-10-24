@@ -8,17 +8,13 @@ export function getCurrentApiDateAndTime() {
   let hours = now.getHours();
   let minutes = now.getMinutes();
 
-  //만약 0439면 0339으로 base시간이 되어야함 - 40분 주기로 api 제공을 하기 때문에
-  //만약에 0039 여서 2339로 빼야하면 day를 하루 빼어야함
   if (minutes < 40) {
     if (hours === 0) {
-      // 자정 이전인 경우, 날짜를 하루 빼야함
       now.setDate(day - 1);
       day = now.getDate() - 1;
     }
     hours = hours - 1;
   }
-  //만약 지금 시간이 0039라면 날짜 -1 하고 2339가 되어야함
   let baseTime = `${hours < 10 ? "0" : ""}${hours}${
     minutes < 10 ? "0" : ""
   }${minutes}`;
@@ -62,8 +58,6 @@ export function getUrtShortApiDateAndTime() {
 
 //단기예보 api 제공시간은 02:10, 05:10, 08:10, 11:10, 14:10, 17:10, 20:10, 23:10
 export function getShortTermApiDateAndTime() {
-  //위의 api 제공시간에 맞춰서 현재시간을 가장가까운 baseTime에 맞춰야함 (현재 시간보다 뒤 시간이면 안됨)
-  //무조건 전시간이여야함 만약  2210이여도 2010시간이 baseTime이여야함
   const apiTimes = [2310, 2010, 1710, 1410, 1110, 810, 510, 210];
   const now = new Date();
 
