@@ -7,7 +7,9 @@
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development nodemon -r dotenv/config server.js",
     "start:dev-pm2": "cross-env NODE_ENV=development MODE=clusterMode pm2 start server.js --watch -i 4",
-    "start:test": "cross-env NODE_ENV=test jest"
+    "start:test": "cross-env NODE_ENV=test jest",
+    "start:prod": "cross-env NODE_ENV=production nodemon -r dotenv/config server.js",
+    "start:prod-pm2":"cross-env NODE_ENV=production MODE=clusterMode pm2 start server.js --watch -i 4"
   },
   "author": "jong2",
   "license": "ISC",

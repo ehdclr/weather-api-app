@@ -61,6 +61,7 @@ export const getCurrentData = async (city) => {
     logger.info("초단기 실황 데이터 응답에 성공하였습니다!");
     return result;
   } catch (err) {
+    logger.error(`에러 메시지 : ${err.message}`);
     throw err;
   }
 };
@@ -110,7 +111,7 @@ export const getUtrSrtData = async (city) => {
     logger.info("초단기 데이터를 불러오는데 성공했습니다.");
     return result;
   } catch (err) {
-    logger.error(`초단기 데이터 오류 : ${err.message}`);
+    logger.error(`에러 메시지 : ${err.message}`);
     throw err;
   }
 };
@@ -167,19 +168,7 @@ export const getSrtTermData = async (city) => {
     logger.info("단기 데이터 응답에 성공하였습니다!");
     return resultObj;
   } catch (err) {
-    logger.error(`단기 데이터 오류 : ${err.message}`);
+    logger.error(`에러 메시지 : ${err.message}`);
     throw err;
   }
 };
-
-
-//TODO 일자별 날짜 데이터 (단기 일보 데이터에서 5일치 가져옴) -> 일단
-//일자별 최고 기온 최저 기온 최고기온은 1700에 최저기온은 0600에 나옴 
-
-
-//TODO 오늘 하루 00시부터 24시까지 시간대별 날씨 정보 보여주는 것
-// 초실황일보(데이터베이스에 누적저장한것 (현재시간까지)) + 단기일보 합친거 보여주면될듯 -> 여기서 겹치는 시간 빼고
-
-
-//TODO 내일의 날씨 정보를 카카오톡으로 알림 보내는 로직 
-//최저 기온 최고기온을 보내주고, 강수확률 6~12시 사이의 강수확률과 SKY 보여줌 -> 요약 하기 

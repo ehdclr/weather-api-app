@@ -2,7 +2,7 @@
 export function getCurrentApiDateAndTime() {
   const now = new Date();
   const year = now.getFullYear();
-  const month = now.getMonth() + 1; // 월은 0부터 시작하므로 1을 더함
+  const month = now.getMonth() + 1; 
   let day = now.getDate();
 
   let hours = now.getHours();
@@ -37,11 +37,8 @@ export function getUrtShortApiDateAndTime() {
   let hours = now.getHours();
   let minutes = now.getMinutes();
 
-  //만약 0439면 0339으로 base시간이 되어야함 - 40분 주기로 api 제공을 하기 때문에
-  //만약에 0039 여서 2339로 빼야하면 day를 하루 빼어야함
   if (minutes < 45) {
     if (hours === 0) {
-      // 자정 이전인 경우, 날짜를 하루 빼야함
       now.setDate(day - 1);
       day = now.getDate();
       hours=23;
@@ -49,7 +46,6 @@ export function getUrtShortApiDateAndTime() {
       hours = hours - 1;
     }
   }
-  //만약 지금 시간이 0039라면 날짜 -1 하고 2339가 되어야함
   let baseTime = `${hours < 10 ? "0" : ""}${hours}${
     minutes < 10 ? "0" : ""
   }${minutes}`;
