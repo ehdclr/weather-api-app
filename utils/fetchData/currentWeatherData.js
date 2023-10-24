@@ -10,6 +10,7 @@ export const fetchCurrentWeatherData = async (city, nx, ny) => {
     let { baseTime, baseDate } = getCurrentApiDateAndTime();
     const API_ENDPOINT = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
     const fetchedData = await fetchRequest.fetchData(API_ENDPOINT);
+
     const cacheKey = `currentWeather_${city}`;
 
     if (!fetchedData || !fetchedData.response || !fetchedData.response.body) {
