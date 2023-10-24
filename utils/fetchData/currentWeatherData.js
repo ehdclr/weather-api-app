@@ -46,6 +46,6 @@ export const fetchCurrentWeatherData = async (city, nx, ny) => {
     logger.info("초단기 실황 데이터를 성공적으로 저장했습니다.");
 
   } catch (err) {
-    logger.error(`fetchCurrentWeather 오류: ${err.message}`); // 에러 로깅
+    logger.error(`fetchCurrentWeather 오류: ${err.message}`);
   }
 };

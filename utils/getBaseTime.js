@@ -52,7 +52,6 @@ export function getUrtShortApiDateAndTime() {
   } else {
     minutes = minutes - 45;
   }
-
   let baseTime = `${hours < 10 ? "0" : ""}${hours}${
     minutes < 10 ? "0" : ""
   }${minutes}`;
