@@ -43,7 +43,7 @@
  *                              type: object
  *                              properties:
  *                                  fcstTime:
- *                                      $ref: '#/components/schemas/ForecastTime'
+ *                                      $ref: '#/components/schemas/shortTerm-WeatherData'
  *                         
  *       400:
  *         description: 잘못된 요청
@@ -53,7 +53,7 @@
  * 
  * components:
  *   schemas:
- *     ForecastTime:
+ *     shortTerm-WeatherData:
  *       type: object
  *       properties:
  *         TMP:
@@ -92,5 +92,10 @@
  *         SNO:
  *           type: string
  *           example: "적설없음"
+ *         TMN:
+ *           type: string
+ *           example: "12.5"
+ *         TMX:
+ *           type: string
+ *           example: "27.5"
  */
-
