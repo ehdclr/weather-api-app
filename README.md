@@ -112,6 +112,7 @@ weatherapi
   - locationUtils.js 파일
     - 해당 도시의 위 경도를 가져옴
     - 지역 이름을 xlsx의 지역 이름에 맞춰 가져오는 함수 (getCityFullName 함수)
+    - xlsx을 기준으로 도시명을 하기 때문에 (완전한 유사 검색으로는 되지 않음)
 
 - 해당 위,경도를 공공 api의 좌표로 변환하는 함수
 
