@@ -81,6 +81,7 @@ weatherapi
   - weatherData:
        - 날씨 데이터 
 
+### 예보 데이터 API
 <details>
   <summary><h3>예보 데이터 API</h3></summary>
   <div markdown="1">
@@ -136,7 +137,7 @@ weatherapi
      - 공공 API 요청시 : 약 2초 ~ 4초
      - redis cache 요청시 : 0.5초 ~0.7초 (약 70~ 80% 속도 개선)
 
-
+## 시퀀스 다이어그램
 <details>
   <summary><h2>시퀀스 다이어그램</h2></summary>
   <div markdown="1">
