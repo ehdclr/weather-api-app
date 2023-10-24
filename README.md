@@ -52,6 +52,13 @@ weatherapi
    └─ responseValidation.js
 
 ```
+# 실행 방법
+
+- npm run start:dev
+- npm run start:dev-pm2 -> pm2로 실행하기
+
+
+
 ## 예보 코드값 정보
 
 <img width="454" alt="image" src="https://github.com/ehdclr/weather-api-app/assets/80464000/39169f42-1942-4820-9f4d-0714f45abfde">
@@ -99,6 +106,7 @@ weatherapi
   - getCurrentAPiDateAndTime 함수 (현재시간을 초단기 실황 api 제공 시간으로 수정하는 함수)
   - getUtrShortApiDateAndTime 함수 (현재시간을 초단기 api 제공 시간으로 수정하는 함수)
   - getShortTermApiDateAndTime 함수 (현재시간을 단기 api 제공 시간으로 수정하는 함수)
+  - 추가 변동사항 ) new Date가 운영체제의 시간에 맞추기 때문에 한국 시간에 맞추도록 수정
 
 - xlsx 파일을 통해 해당 지역의 데이터를 입력시 위도(lat) 경도(lng) 데이터를 가져옴
   - locationUtils.js 파일
@@ -109,6 +117,7 @@ weatherapi
 
 - 해당 응답 데이터에 대한 schema 검증
   - AJV를 사용하여 적절한 응답 객체인지 validation 검증
+
 
 
 ## 성능 개선 
