@@ -5,12 +5,11 @@ import { dfs_xy_conv } from "../location/locationConverter.js";
 import {getLatitudeAndLongitude} from "../location/locationUtils.js";
 
 export const startCronJobs = async () => {
-  //초단기 실황 데이터 cron 작업  (10분마다 데이터 업데이트 된다했으니 수정)
+  //초단기 실황 데이터 cron 작업  (10분마다 데이터 업데이트 - 공공 api 공식 문서)
   cron.schedule(
     "0 */10 * * * *",
     async () => {
-      //node-cron으로 서울 경기 제주 fetch요청 하기
-      //서울 -위도
+      //서울 -위도 경도
       const { lat: lat1, lng: lng1 } = getLatitudeAndLongitude("서울특별시");
       const { x: x1, y: y1 } = dfs_xy_conv("toXY", lat1, lng1);
       //경기도
