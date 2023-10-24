@@ -43,7 +43,7 @@
  *                           type: object
  *                           properties:
  *                             fcstTime:
- *                               $ref: '#/components/schemas/ForecastTime'
+ *                               $ref: '#/components/schemas/utrSrtWeatherData'
  *                             
  *       400:
  *         description: 잘못된 요청
@@ -52,7 +52,7 @@
  *
  * components:
  *   schemas:
- *     ForecastTime:
+ *     utrSrtWeatherData:
  *       type: object
  *       properties:
  *         LGT:
