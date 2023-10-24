@@ -79,7 +79,9 @@ weatherapi
   - fcstDate : 예보 날짜
   - fcstTime : 예보 시간
   - weatherData:
-       - 날씨 데이터 
+       - 날씨 데이터
+       - 날씨 코드 : 날씨 값
+         
 
 ### 예보 데이터 API
 <details>
@@ -118,7 +120,7 @@ weatherapi
 - 해당 위,경도를 공공 api의 좌표로 변환하는 함수
 
 - 해당 응답 데이터에 대한 schema 검증
-  - AJV를 사용하여 적절한 응답 객체인지 validation 검증
+  - 응답 일관성을 위해 AJV를 사용하여 적절한 응답 객체인지 validation 검증
 
 - 데이터베이스 ttl
   - mongodb 스키마의 ttl을 2일을 주어, 초단기 실황 데이터를 현재 기준에서 2일전까지만 저장하도록함
