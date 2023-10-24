@@ -1,11 +1,16 @@
 # 폴더 구조 
+
 ```
 weatherapi
 ├─ .eslintrc.json
 ├─ apis
-│  └─ currentData
+│  └─ forecast
 │     ├─ forcast.service.js
-│     └─ forecast.controller.js
+│     ├─ forecast.controller.js
+│     └─ schema
+│        ├─ currentData.schema.js
+│        ├─ shortTermData.schema.js
+│        └─ utrSrtData.schema.js
 ├─ app.js
 ├─ config
 │  ├─ config.js
@@ -102,6 +107,9 @@ weatherapi
 
 - 해당 위,경도를 공공 api의 좌표로 변환하는 함수
 
+- 해당 응답 데이터에 대한 schema 검증
+  - AJV를 사용하여 적절한 응답 객체인지 validation 검증
+
 
 ## 성능 개선 
 - redis cache를 통한 응답 데이터 시간 감소 (upstash 사용)
@@ -118,3 +126,17 @@ weatherapi
      - 공공 API 요청시 : 약 2초 ~ 4초
      - redis cache 요청시 : 0.5초 ~0.7초 (약 70~ 80% 속도 개선)
 
+
+<details>
+  <summary><h2>시퀀스 다이어그램</h2></summary>
+  <div markdown="1">
+    <ul>
+       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/45b514c8-66b5-4ecc-a8df-a2b140b09cb4" width=70%>
+      <li>초단기 실황 데이터 시퀀스 다이어그램  </li>
+      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/b3533531-d1aa-4181-bcc9-3fb11bd803c6" width=70%>
+      <li>초단기 데이터 시퀀스 다이어그램</li>
+      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/b65fa520-2107-4c6b-b9b0-0a41ed1ac917" width=70%>
+      <li>단기 예보 데이터 시퀀스 다이어그램</li>
+    </ul>
+  </div>
+</details> 
