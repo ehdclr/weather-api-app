@@ -61,18 +61,19 @@ weatherapi
 
 ## 예보 코드값 정보
 
-<img width="454" alt="image" src="https://github.com/ehdclr/weather-api-app/assets/80464000/39169f42-1942-4820-9f4d-0714f45abfde">
+![image](https://github.com/ehdclr/weather-api-app/assets/80464000/dfa670b2-b94b-404e-a012-b9ec7db988e1)
+
 
 
 ## API 요청
-![image](https://github.com/ehdclr/weather-api-app/assets/80464000/306592ef-37e3-4198-a3b6-f9851934cc20)
+![image](https://github.com/ehdclr/weather-api-app/assets/80464000/5e292b5c-3ca2-4cf2-9eb1-5ef696d3d81f)
 
-- swagger url : /api-docs
+
+- swagger url : [swagger-api-docs](http://52.141.48.49:8000/api-docs/)
 
 
 ## 스키마 
-![image](https://github.com/ehdclr/weather-api-app/assets/80464000/43033747-8555-41c1-b236-9b655fa2bdfb)
-![image](https://github.com/ehdclr/weather-api-app/assets/80464000/22327f14-0ef6-4388-a185-5531710c1ce1)
+![image](https://github.com/ehdclr/weather-api-app/assets/80464000/8d7a4bbb-fa33-4813-921c-a67451f03c79)
 - schema 구조 (currentdatas)
   - 초단기 실황 데이터를 스키마에 저장
   - cityName : 도시 이름
@@ -81,21 +82,21 @@ weatherapi
   - weatherData:
        - 날씨 데이터
        - 날씨 코드 : 날씨 값
-         
 
-### 예보 데이터 API
+
+## 예보 데이터 API
 <details>
   <summary><h3>예보 데이터 API</h3></summary>
   <div markdown="1">
     <ul>
-       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/da559061-8af1-4967-af97-5f18a282a728" width=70%>
-       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/1b3f0f56-84bc-4b72-9d90-6cae7c59490c" width=70%>
+       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/221f1abe-6b40-4ea3-91b8-b9972ea6f66c" width=70%>
+       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/c22fd71f-f039-4440-998f-1978a1c703b2" width=70%>
       <li>초단기 실황 데이터 - 1시간 기준으로 공공 api 요청 (node-cron)사용  </li>
        <p>서울시, 경기도, 제주도 초단기 실황 데이터를 1시간 기준으로 누적 (매 시간 40분마다 api 요청 제공) cron으로 주기적으로 데이터 요청</p>
-      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/b9a1bf0c-5c66-419d-b8f1-583c06acaa04" width=70%>
+      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/5a651058-c7c3-4ce2-9850-89e44001cf42" width=70%>
       <li>초단기 데이터 - 1시간 기준으로 공공 api 요청</li>
-      <p>단기 예보 데이터 1시간 기준으로 업데이트 (매 시간 45분마다 api 요청 제공)</p>
-      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/391127e0-d57d-400e-84a0-4be5c6c7714f" width=70%>
+      <p>단기 예보 데이터 1시간 기준으로 업데이트 (매 시간 45분마다 api 요청 제공)
+      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/0a71ad49-5902-4a3a-bc7e-cc1f85bda455" width=70%>
       <li>단기 예보 데이터 - 3시간 기준으로 공공 api 요청</li>
       <p>단기 예보 데이터 3시간 기준으로 업데이트</p>
     </ul>
@@ -122,6 +123,9 @@ weatherapi
 - 해당 응답 데이터에 대한 schema 검증
   - 응답 일관성을 위해 AJV를 사용하여 적절한 응답 객체인지 validation 검증
 
+- 응답 객체 구조
+  - 도시, 날짜, 시간별로 객체로 묶어 날씨 코드와 해당하는 날씨 값을 응답하도록 구성
+
 - 데이터베이스 ttl
   - mongodb 스키마의 ttl을 2일을 주어, 초단기 실황 데이터를 현재 기준에서 2일전까지만 저장하도록함
 
@@ -146,11 +150,11 @@ weatherapi
   <summary><h2>시퀀스 다이어그램</h2></summary>
   <div markdown="1">
     <ul>
-       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/45b514c8-66b5-4ecc-a8df-a2b140b09cb4" width=70%>
+       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/4fc58dde-c255-4bfc-a9b4-687dd0f911df" width=70%>
       <li>초단기 실황 데이터 시퀀스 다이어그램  </li>
-      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/b3533531-d1aa-4181-bcc9-3fb11bd803c6" width=70%>
+      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/c275b4f7-ce17-4598-b741-f079e05bc08f" width=70%>
       <li>초단기 데이터 시퀀스 다이어그램</li>
-      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/b65fa520-2107-4c6b-b9b0-0a41ed1ac917" width=70%>
+      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/fbf968c2-b956-4721-bca8-a22d771381c0" width=70%>
       <li>단기 예보 데이터 시퀀스 다이어그램</li>
     </ul>
   </div>
