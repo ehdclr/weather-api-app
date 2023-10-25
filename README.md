@@ -58,6 +58,9 @@ weatherapi
 - npm run start:dev-pm2 -> pm2로 실행하기
 
 
+# 사용 기술
+- server : express
+- DB : MongoDB, Redis
 
 ## 예보 코드값 정보
 
