@@ -113,7 +113,7 @@ weatherapi
   </div>
 </details> 
 
-<h3>지역 API</h3>
+### 지역 API
 - /api/regions (POST) : 초단기 실황 데이터 로그를 저장할 지역 추가
 - /api/regions (GET) : 로그 수집중인 지역 리스트 목록 보여주기
 
