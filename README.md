@@ -66,8 +66,7 @@ weatherapi
 
 
 ## API 요청
-![image](https://github.com/ehdclr/weather-api-app/assets/80464000/5e292b5c-3ca2-4cf2-9eb1-5ef696d3d81f)
-
+![image](https://github.com/ehdclr/weather-api-app/assets/80464000/6bdf6da3-effb-47e0-81e8-203b6ca7f9fc)
 
 - swagger url : [swagger-api-docs](http://52.141.48.49:8000/api-docs/)
 
@@ -82,6 +81,11 @@ weatherapi
   - weatherData:
        - 날씨 데이터
        - 날씨 코드 : 날씨 값
+
+![image](https://github.com/ehdclr/weather-api-app/assets/80464000/b59e608f-828d-40d1-9abe-4dfde9c6cf35)
+- schema 구조
+  - 초단기 실황 데이터를 수집할 지역
+  - regionName: 수집할 지역
 
 
 ## 예보 데이터 API
@@ -102,6 +106,10 @@ weatherapi
     </ul>
   </div>
 </details> 
+
+<h3>지역 API</h3>
+- /api/regions (POST) : 초단기 실황 데이터 로그를 저장할 지역 추가
+- /api/regions (GET) : 로그 수집중인 지역 리스트 목록 보여주기
 
 ## 특이 사항
 - redis ttl 값을 각 api 제공시간에 맞춰 공공 api 데이터를 만료 (공공 api 요청시)
@@ -156,6 +164,10 @@ weatherapi
       <li>초단기 데이터 시퀀스 다이어그램</li>
       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/fbf968c2-b956-4721-bca8-a22d771381c0" width=70%>
       <li>단기 예보 데이터 시퀀스 다이어그램</li>
+      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/7f196dac-07ac-484f-8f6f-24711c963852" width=70%>
+      <li>도시의 초단기 실황 데이터 누적하기위한 지역추가 시퀀스 다이어그램</li>
+       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/b30cbbcd-8fd8-43a7-bc6c-8ece5449f2bf" width=70%>
+      <li>수집하고 있는 도시들 목록 보여주기</li>
     </ul>
   </div>
 </details> 
