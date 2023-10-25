@@ -31,14 +31,12 @@ export const getCurrentData = async (city) => {
     const cacheKey = `currentWeather_${cityFullName}`;
     let currentWeatherData = await getCacheData(cacheKey);
 
-    // 캐시 데이터가 없으면 db에서 가져오기
     if (!currentWeatherData) {
       currentWeatherData = await CurrentDataModel.findOne({
         cityName: cityFullName,
       }).sort({ fcstDate: -1, fcstTime: -1 });
       await setCacheData(cacheKey, currentWeatherData, 3600);
     }
-    // 데이터베이스에도 없다면, 다시 fetch 하는 로직
     if (!currentWeatherData) {
       let { lat, lng } = getLatitudeAndLongitude(cityFullName);
       let { x, y } = dfs_xy_conv("toXY", lat, lng);
@@ -59,17 +57,16 @@ export const getCurrentData = async (city) => {
       },
     };
 
-    //ajv 응답객체 검증
     validate(currentDataSchema, result);
-
     logger.info("초단기 실황 데이터 응답에 성공하였습니다!");
     return result;
   } catch (err) {
+    logger.error(`에러 메시지 : ${err.message}`);
     throw err;
   }
 };
 
-//초단기 서비스 데이터 받는 함수  -> 새로 업데이트 한 값만 받으면 되기때문에 API로 바로 요청
+//초단기 서비스 데이터 받는 함수
 export const getUtrSrtData = async (city) => {
   try {
     const SERVICE_KEY = process.env.WEATHER_API_SERVICE_KEY;
@@ -122,12 +119,12 @@ export const getUtrSrtData = async (city) => {
     logger.info("초단기 데이터를 불러오는데 성공했습니다.");
     return result;
   } catch (err) {
-    logger.error(`초단기 데이터 오류 : ${err.message}`);
+    logger.error(`에러 메시지 : ${err.message}`);
     throw err;
   }
 };
 
-//단기 서비스 데이터 받는 함수 -> 새로 업데이트 한 값만 받으면 되기 때문에 공공 API로 바로 요청
+//단기 서비스 데이터 받는 함수
 export const getSrtTermData = async (city) => {
   try {
     const SERVICE_KEY = process.env.WEATHER_API_SERVICE_KEY;
@@ -155,8 +152,6 @@ export const getSrtTermData = async (city) => {
       }
 
       srtTermData = fetchedData.response.body.items.item; // API에서 가져온 데이터를 변수에 할당
-
-      // 데이터를 가져왔으면 캐시에 저장 (예: 3시간 동안 유효한 캐시)
       setCacheData(cacheKey, srtTermData, 10800); // 10800초(3시간) 동안 유효한 캐시
     }
 
@@ -185,10 +180,8 @@ export const getSrtTermData = async (city) => {
     logger.info("단기 데이터 응답에 성공하였습니다!");
     return resultObj;
   } catch (err) {
-    logger.error(`단기 데이터 오류 : ${err.message}`);
+    logger.error(`에러 메시지 : ${err.message}`);
     throw err;
   }
 };
 
-//TODO 내일의 날씨 정보를 카카오톡으로 알림 보내는 로직
-//최저 기온 최고기온을 보내주고, 강수확률 6~12시 사이의 강수확률과 SKY 보여줌 -> 요약 하기

@@ -7,7 +7,7 @@ import { dfs_xy_conv } from "../location/locationConverter.js";
 import { getLatitudeAndLongitude } from "../location/locationUtils.js";
 
 export const startCronJobs = async () => {
-  //초단기 실황 데이터 cron 작업  (10분마다 데이터 업데이트 된다했으니 수정)
+  //초단기 실황 데이터 cron 작업  (10분마다 데이터 업데이트 - 공공 api 공식 문서)
   cron.schedule(
     "0 */10 * * * *",
     async () => {

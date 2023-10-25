@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-//초실황예보 데이터 저장 1시간 기준 (누적 저장)
 const currentDataSchema = new mongoose.Schema(
   {
     cityName: {

@@ -30,7 +30,6 @@ app.get('/status', (req, res) => {
   res.sendStatus(200);
 });
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-//여기에 기상예보 관련 라우터 추가
 app.use('/api', forecast);
 app.use(errorHandler);
 

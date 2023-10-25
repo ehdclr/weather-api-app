@@ -1,12 +1,12 @@
 import * as forecastService from "./forcast.service.js";
 import { successResponse } from "../../utils/response.js";
 
-// 초실황 예보 데이터 관련 컨트롤러
 export const forecastController = {
+
+// 초실황 예보 데이터 관련 컨트롤러
   getCurrentData: async (req, res, next) => {
     try {
       let curCity = req.query.city;
-      //service 로직
       let result = await forecastService.getCurrentData(curCity);
       return res
         .status(200)
@@ -42,7 +42,7 @@ export const forecastController = {
     }
   },
 
-  //단기 예보 컨트롤러 ( 3시간 주기로 데이터 업데이트 하기 )
+  //단기 예보 컨트롤러 ( 3시간 주기로 데이터 업데이트 )
   getSrtTermData: async (req, res, next) => {
     try {
       let curCity = req.query.city;
