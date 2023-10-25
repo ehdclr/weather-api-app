@@ -3,14 +3,20 @@
 ```
 weatherapi
 ├─ .eslintrc.json
+├─ README.md
 ├─ apis
-│  └─ forecast
-│     ├─ forcast.service.js
-│     ├─ forecast.controller.js
+│  ├─ forecast
+│  │  ├─ forcast.service.js
+│  │  ├─ forecast.controller.js
+│  │  └─ schema
+│  │     ├─ currentData.schema.js
+│  │     ├─ shortTermData.schema.js
+│  │     └─ utrSrtData.schema.js
+│  └─ region
+│     ├─ region.controller.js
+│     ├─ region.service.js
 │     └─ schema
-│        ├─ currentData.schema.js
-│        ├─ shortTermData.schema.js
-│        └─ utrSrtData.schema.js
+│        └─ regions.schema.js
 ├─ app.js
 ├─ config
 │  ├─ config.js
@@ -19,12 +25,15 @@ weatherapi
 │  ├─ redis.js
 │  └─ swagger.js
 ├─ docs
-│  ├─ getCurrentData.swagger.js
-│  ├─ getSrtTermData.swagger.js
-│  └─ getUtrSrtData.swagger.js
+│  ├─ forecasts
+│  │  ├─ getCurrentData.swagger.js
+│  │  ├─ getSrtTermData.swagger.js
+│  │  └─ getUtrSrtData.swagger.js
+│  └─ regions
+│     ├─ getRegions.swagger.js
+│     └─ postRegions.swagger.js
 ├─ middleware
-│  ├─ errorHandler.middleware.js
-│  └─ requestValidation.middleware.js
+│  └─ errorHandler.middleware.js
 ├─ models
 │  ├─ current.model.js
 │  └─ region.model.js
