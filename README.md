@@ -85,6 +85,9 @@ weatherapi
        - 날씨 데이터
        - 날씨 코드 : 날씨 값
 
+<br>
+<br>
+
 ![image](https://github.com/ehdclr/weather-api-app/assets/80464000/b59e608f-828d-40d1-9abe-4dfde9c6cf35)
 - schema 구조
   - 초단기 실황 데이터를 수집할 지역
