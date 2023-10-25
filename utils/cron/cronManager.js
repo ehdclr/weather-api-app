@@ -1,29 +1,31 @@
 //초실황 데이터 cron 작업 //서울 경기 제주
 import cron from "node-cron";
+import logger from "../../config/logger.js";
+import RegionModel from "../../models/region.model.js";
 import { fetchCurrentWeatherData } from "../fetchData/currentWeatherData.js";
 import { dfs_xy_conv } from "../location/locationConverter.js";
-import {getLatitudeAndLongitude} from "../location/locationUtils.js";
+import { getLatitudeAndLongitude } from "../location/locationUtils.js";
 
 export const startCronJobs = async () => {
   //초단기 실황 데이터 cron 작업  (10분마다 데이터 업데이트 된다했으니 수정)
   cron.schedule(
     "0 */10 * * * *",
     async () => {
-      //node-cron으로 서울 경기 제주 fetch요청 하기
-      //서울 -위도
-      const { lat: lat1, lng: lng1 } = getLatitudeAndLongitude("서울특별시");
-      const { x: x1, y: y1 } = dfs_xy_conv("toXY", lat1, lng1);
-      //경기도
-      const { lat: lat2, lng: lng2 } = getLatitudeAndLongitude("경기도");
-      const { x: x2, y: y2 } = dfs_xy_conv("toXY", lat2, lng2);
-      //제주도
-      const { lat: lat3, lng: lng3 } =
-        getLatitudeAndLongitude("제주특별자치도");
-      const { x: x3, y: y3 } = dfs_xy_conv("toXY", lat3, lng3);
+      const regions = await RegionModel.find();
 
-      await fetchCurrentWeatherData("서울특별시", x1, y1);
-      await fetchCurrentWeatherData("경기도", x2, y2);
-      await fetchCurrentWeatherData("제주도", x3, y3);
+      const promises = regions.map(async (region) => {
+        const city = region.regionName;
+        const { lat, lng } = getLatitudeAndLongitude(city);
+        const { x, y } = dfs_xy_conv("toXY", lat, lng);
+        return fetchCurrentWeatherData(city, x, y);
+      });
+
+      try {
+        await Promise.all(promises);
+      } catch (err) {
+        logger.error(`날씨 데이터를 불러오는 동안 에러가 발생했습니다!${err}`);
+      }
+
     },
     {
       timezone: "Asia/Seoul",

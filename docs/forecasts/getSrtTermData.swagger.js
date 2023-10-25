@@ -48,7 +48,10 @@
  *       400:
  *         description: 잘못된 요청
  *       404:
- *         description: 데이터를 찾을 수 없음
+ *         description: |
+ *              해당 요청을 찾을 수 없을 때 응답
+ *              - 요청한 도시 데이터가 없을 때
+ *              - 공공 API에서 데이터를 가져오는 데 실패했을 때
  * 
  * 
  * components:

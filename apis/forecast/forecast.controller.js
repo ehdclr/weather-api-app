@@ -8,7 +8,6 @@ export const forecastController = {
       let curCity = req.query.city;
       //service 로직
       let result = await forecastService.getCurrentData(curCity);
-      //TODO 데이터 검증하는 로직 (validation)
       return res
         .status(200)
         .json(
@@ -23,7 +22,7 @@ export const forecastController = {
     }
   },
 
-  //초단기 예보 컨트롤러 위와 비슷함 
+  //초단기 예보 컨트롤러 위와 비슷함
   getUtrSrtData: async (req, res, next) => {
     try {
       let curCity = req.query.city;
@@ -62,4 +61,6 @@ export const forecastController = {
       next(err);
     }
   },
+
+
 };

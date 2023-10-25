@@ -22,6 +22,12 @@ import utrSrtDataSchema from "./schema/utrSrtData.schema.js";
 export const getCurrentData = async (city) => {
   try {
     let cityFullName = getCityFullName(city);
+
+    if (!cityFullName) {
+      logger.error("도시를 제대로 입력해주세요!");
+      throw new NotFoundError("해당 도시를 찾을 수 없습니다!");
+    }
+
     const cacheKey = `currentWeather_${cityFullName}`;
     let currentWeatherData = await getCacheData(cacheKey);
 
@@ -30,7 +36,7 @@ export const getCurrentData = async (city) => {
       currentWeatherData = await CurrentDataModel.findOne({
         cityName: cityFullName,
       }).sort({ fcstDate: -1, fcstTime: -1 });
-      await setCacheData(cacheKey,currentWeatherData,3600);
+      await setCacheData(cacheKey, currentWeatherData, 3600);
     }
     // 데이터베이스에도 없다면, 다시 fetch 하는 로직
     if (!currentWeatherData) {
@@ -40,10 +46,8 @@ export const getCurrentData = async (city) => {
       currentWeatherData = await CurrentDataModel.findOne({
         cityName: cityFullName,
       }).sort({ fcstDate: -1, fcstTime: -1 });
-
     }
 
-    
     const result = {
       cityName: currentWeatherData.cityName,
       forecast: {
@@ -55,8 +59,8 @@ export const getCurrentData = async (city) => {
       },
     };
 
-    //ajv 응답객체 검증 
-    validate(currentDataSchema,result);
+    //ajv 응답객체 검증
+    validate(currentDataSchema, result);
 
     logger.info("초단기 실황 데이터 응답에 성공하였습니다!");
     return result;
@@ -70,6 +74,12 @@ export const getUtrSrtData = async (city) => {
   try {
     const SERVICE_KEY = process.env.WEATHER_API_SERVICE_KEY;
     const cityFullName = getCityFullName(city);
+
+    if (!cityFullName) {
+      logger.error("도시를 제대로 입력해주세요!");
+      throw new NotFoundError("해당 도시를 찾을 수 없습니다!");
+    }
+
     const cacheKey = `utrSrtData_${cityFullName}`;
     let utrSrtData = await getCacheData(cacheKey);
 
@@ -80,6 +90,8 @@ export const getUtrSrtData = async (city) => {
       let { x, y } = dfs_xy_conv("toXY", lat, lng);
       const API_ENDPOINT = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${x}&ny=${y}`;
       const fetchedData = await fetchRequest.fetchData(API_ENDPOINT);
+
+      console.log(baseTime, baseDate, "ㅋㅋ");
 
       if (!fetchedData || !fetchedData.response || !fetchedData.response.body) {
         logger.error("공공 날씨 API를 fetch에 실패하였습니다![초단기 데이터]"); // 에러 로깅
@@ -106,7 +118,7 @@ export const getUtrSrtData = async (city) => {
       forecast: groupedByFcstDateAndTime,
     };
 
-    validate(utrSrtDataSchema,result);
+    validate(utrSrtDataSchema, result);
     logger.info("초단기 데이터를 불러오는데 성공했습니다.");
     return result;
   } catch (err) {
@@ -120,6 +132,12 @@ export const getSrtTermData = async (city) => {
   try {
     const SERVICE_KEY = process.env.WEATHER_API_SERVICE_KEY;
     const cityFullName = getCityFullName(city);
+
+    if (!cityFullName) {
+      logger.error("도시를 제대로 입력해주세요!");
+      throw new NotFoundError("해당 도시를 찾을 수 없습니다!");
+    }
+
     const cacheKey = `srtTermData_${cityFullName}`;
     let srtTermData = await getCacheData(cacheKey);
 
@@ -162,7 +180,7 @@ export const getSrtTermData = async (city) => {
       resultObj.forecast[fcstDate][fcstTime][category] = fcstValue;
     });
 
-    validate(shortTermForecastDataSchema,resultObj);
+    validate(shortTermForecastDataSchema, resultObj);
 
     logger.info("단기 데이터 응답에 성공하였습니다!");
     return resultObj;
@@ -172,14 +190,5 @@ export const getSrtTermData = async (city) => {
   }
 };
 
-
-//TODO 일자별 날짜 데이터 (단기 일보 데이터에서 5일치 가져옴) -> 일단
-//일자별 최고 기온 최저 기온 최고기온은 1700에 최저기온은 0600에 나옴 
-
-
-//TODO 오늘 하루 00시부터 24시까지 시간대별 날씨 정보 보여주는 것
-// 초실황일보(데이터베이스에 누적저장한것 (현재시간까지)) + 단기일보 합친거 보여주면될듯 -> 여기서 겹치는 시간 빼고
-
-
-//TODO 내일의 날씨 정보를 카카오톡으로 알림 보내는 로직 
-//최저 기온 최고기온을 보내주고, 강수확률 6~12시 사이의 강수확률과 SKY 보여줌 -> 요약 하기 
+//TODO 내일의 날씨 정보를 카카오톡으로 알림 보내는 로직
+//최저 기온 최고기온을 보내주고, 강수확률 6~12시 사이의 강수확률과 SKY 보여줌 -> 요약 하기
