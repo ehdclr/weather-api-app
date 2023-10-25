@@ -10,7 +10,7 @@ const swaggerOptions = {
     },
     basePath: '/',
   },
-  apis: ['./docs/*.swagger.js'], 
+  apis: ['./docs/**/*.swagger.js'], 
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
