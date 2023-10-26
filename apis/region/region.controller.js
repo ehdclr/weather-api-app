@@ -6,9 +6,6 @@ export const regionController = {
   //수집할 지역 추가 컨트롤러
   addRegion: async (req, res, next) => {
     try {
-      if (!req.session.admin) {
-        throw new Unauthorization("관리자 로그인이 필요합니다.");
-      }
       let curCity = req.body.city;
       let result = await regionService.addRegion(curCity);
       return res
@@ -34,9 +31,6 @@ export const regionController = {
 
   deleteRegion: async (req, res, next) => {
     try {
-      if (!req.session.admin) {
-        throw new Unauthorization("관리자 로그인이 필요합니다.");
-      }
       const city = req.body.city;
 
       //수집 지역을 삭제하는 로직

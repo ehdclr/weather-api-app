@@ -3,6 +3,7 @@ import Admin from "../../models/admin.model.js";
 import { Unauthorization } from "../../utils/httpErrors.js";
 import validate from "../../utils/responseValidation.js";
 import loginSchema from "./schema/login.schema.js";
+import jwt from "jsonwebtoken";
 
 export const login = async (username, password) => {
   //관리자 계정 로그인 로직 서비스
@@ -19,8 +20,10 @@ export const login = async (username, password) => {
   }
 
   const result = { username: admin.username };
+  const token = jwt.sign(result,process.env.JWT_KEY,{expiresIn:"5m"});
   validate(loginSchema,result);
 
   logger.info(`${admin.username} 관리자님이 로그인하였습니다.`);
-  return result;
+  return token;
 };
+

@@ -10,7 +10,6 @@ import forecast from './routes/forecast.router.js';
 import region from './routes/region.router.js';
 import admin from './routes/admin.router.js';
 import { connectToDb } from './config/database.js';
-import session from 'express-session';
 
 
 const app = express();
@@ -18,15 +17,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
-app.use((session({
-  secret: process.env.SESSION_KEY,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { //https 여부 
-    secure: false,
-    maxAge: 36000000,
-  },
-})));
 
 app.use(morgan('combined', {
   stream: {
