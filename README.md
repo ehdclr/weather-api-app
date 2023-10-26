@@ -5,6 +5,11 @@ weatherapi
 ├─ .eslintrc.json
 ├─ README.md
 ├─ apis
+│  ├─ admin
+│  │  ├─ admin.controller.js
+│  │  ├─ admin.service.js
+│  │  └─ schema
+│  │     └─ login.schema.js
 │  ├─ forecast
 │  │  ├─ forcast.service.js
 │  │  ├─ forecast.controller.js
@@ -25,22 +30,29 @@ weatherapi
 │  ├─ redis.js
 │  └─ swagger.js
 ├─ docs
+│  ├─ admin
+│  │  └─ login.swagger.js
 │  ├─ forecasts
 │  │  ├─ getCurrentData.swagger.js
 │  │  ├─ getSrtTermData.swagger.js
 │  │  └─ getUtrSrtData.swagger.js
 │  └─ regions
+│     ├─ deleteRegion.swagger.js
 │     ├─ getRegions.swagger.js
-│     └─ postRegions.swagger.js
+│     └─ postRegion.swagger.js
 ├─ middleware
+│  ├─ auth.middleware.js
 │  └─ errorHandler.middleware.js
 ├─ models
+│  ├─ admin.model.js
 │  ├─ current.model.js
 │  └─ region.model.js
 ├─ package-lock.json
 ├─ package.json
 ├─ routes
-│  └─ forecast.router.js
+│  ├─ admin.router.js
+│  ├─ forecast.router.js
+│  └─ region.router.js
 ├─ server.js
 └─ utils
    ├─ cache
@@ -77,8 +89,8 @@ weatherapi
 
 
 
-## API 요청
-![image](https://github.com/ehdclr/weather-api-app/assets/80464000/6bdf6da3-effb-47e0-81e8-203b6ca7f9fc)
+## API 응답 코드
+![image](https://github.com/ehdclr/weather-api-app/assets/80464000/398767ed-7e19-49f7-89ec-599016a41eaa)
 
 - swagger url : [swagger-api-docs](http://52.141.48.49:8000/api-docs/)
 
@@ -103,7 +115,7 @@ weatherapi
   - regionName: 수집할 지역
 
 
-## 예보 데이터 API
+## API
 <details>
   <summary><h3>예보 데이터 API</h3></summary>
   <div markdown="1">
@@ -123,8 +135,12 @@ weatherapi
 </details> 
 
 ### 지역 API
-- /api/regions (POST) : 초단기 실황 데이터 로그를 저장할 지역 추가
+- /api/regions (POST) : 초단기 실황 데이터 로그를 저장할 지역 추가 (관리자 권한 필요)
 - /api/regions (GET) : 로그 수집중인 지역 리스트 목록 보여주기
+- /api/regions (DELETE) : 로그 수집중인 지역을 삭제하기 (관리자 권한 필요)
+
+### 로그인 API
+- /api/admin/login (POST) : 관리자 아이디 로그인
 
 ## 특이 사항
 - redis ttl 값을 각 api 제공시간에 맞춰 공공 api 데이터를 만료 (공공 api 요청시)
@@ -152,6 +168,7 @@ weatherapi
 - 데이터베이스 ttl
   - mongodb 스키마의 ttl을 2일을 주어, 초단기 실황 데이터를 현재 기준에서 2일전까지만 저장하도록함
 
+- cron으로 초단기 실황 데이터를 수집하기 때문에 많은 요청을 방지하기 위해 수집 지역 추가 및 삭제 부분은 관리자로 접속하여 지역 추가 및 삭제 가능 
 
 ## 성능 개선
 - redis cache를 통한 응답 데이터 시간 감소 (upstash 사용)
