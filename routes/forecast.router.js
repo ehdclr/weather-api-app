@@ -1,6 +1,7 @@
 import express from 'express';
 import { forecastController } from '../apis/forecast/forecast.controller.js';
 
+
 const router = express.Router();
 
 /**
@@ -18,6 +19,7 @@ router.get('/forecasts/utrsrt',forecastController.getUtrSrtData);
 
 // 위치의 단기 데이터 정도
 router.get('/forecasts/srt-term',forecastController.getSrtTermData);
+
 
 
 export default router;

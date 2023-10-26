@@ -22,7 +22,7 @@ export const forecastController = {
     }
   },
 
-  //초단기 예보 데이터 컨트롤러
+  //초단기 예보 컨트롤러 위와 비슷함
   getUtrSrtData: async (req, res, next) => {
     try {
       let curCity = req.query.city;
@@ -61,4 +61,6 @@ export const forecastController = {
       next(err);
     }
   },
+
+
 };

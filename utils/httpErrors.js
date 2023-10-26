@@ -16,4 +16,15 @@ export class HttpError extends Error {
       super(400, message);
     }
   }
+
+  export class ConfilictError extends HttpError {
+    constructor(message = 'Conflict request') {
+      super(409, message);
+    }
+  }
   
+  export class Unauthorization extends HttpError {
+    constructor(message = "Unauthorized"){
+      super(401,message);
+    }
+  }

@@ -1,11 +1,11 @@
 /**
  * @swagger
- * /api/forecasts/current:
+ * /api/forecasts/utrsrt:
  *   get:
  *     tags:
  *       - Forecast
- *     summary: 위치의 실시간 데이터 정보를 반환합니다.
- *     description: 특정 도시에 대한 현재의 실시간 날씨 정보를 가져옵니다.
+ *     summary: 위치의 초단기 데이터 정보를 반환합니다.
+ *     description: 특정 도시에 대한 현재의 초단기 날씨 정보를 가져옵니다.
  *     parameters:
  *       - name: city
  *         in: query
@@ -29,7 +29,7 @@
  *                   example: 200
  *                 message:
  *                   type: string
- *                   example: 서울특별시지역의 현재 실시간 초실황 데이터 입니다.
+ *                   example: 서울특별시지역의 현재 초단기 데이터 입니다.
  *                 data:
  *                   type: object
  *                   properties:
@@ -43,40 +43,40 @@
  *                           type: object
  *                           properties:
  *                             fcstTime:
- *                               $ref: '#/components/schemas/WeatherData'
+ *                               $ref: '#/components/schemas/utrSrtWeatherData'
  *                             
- *       400:
- *         description: 잘못된 요청
  *       404:
- *         description: 데이터를 찾을 수 없음
+ *         description: |
+ *              해당 요청을 찾을 수 없을 때 응답
+ *              - 요청한 도시 데이터가 없을 때
+ *              - 공공 API에서 데이터를 가져오는 데 실패했을 때
+ *       500:
+ *         description: 서버 에러에 대한 응답
+ *       
  *
  * components:
  *   schemas:
- *     WeatherData:
+ *     utrSrtWeatherData:
  *       type: object
  *       properties:
+ *         LGT:
+ *           type: string
  *         PTY:
  *           type: string
- *           example: "0"
- *         REH:
- *           type: string
- *           example: "43"
  *         RN1:
  *           type: string
- *           example: "0"
+ *         SKY:
+ *           type: string
  *         T1H:
  *           type: string
- *           example: "16.5"
+ *         REH:
+ *           type: string
  *         UUU:
  *           type: string
- *           example: "1.6"
- *         VEC:
- *           type: string
- *           example: "254"
  *         VVV:
  *           type: string
- *           example: "0.5"
+ *         VEC:
+ *           type: string
  *         WSD:
  *           type: string
- *           example: "1.7"
  */

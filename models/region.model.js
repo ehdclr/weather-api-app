@@ -6,12 +6,6 @@ const regionSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  currentDatas: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "CurrentData",
-    },
-  ],
 },{versionKey:false});
 
 const RegionModel = mongoose.model("Region", regionSchema);

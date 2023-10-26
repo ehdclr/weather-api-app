@@ -3,14 +3,20 @@
 ```
 weatherapi
 ├─ .eslintrc.json
+├─ README.md
 ├─ apis
-│  └─ forecast
-│     ├─ forcast.service.js
-│     ├─ forecast.controller.js
+│  ├─ forecast
+│  │  ├─ forcast.service.js
+│  │  ├─ forecast.controller.js
+│  │  └─ schema
+│  │     ├─ currentData.schema.js
+│  │     ├─ shortTermData.schema.js
+│  │     └─ utrSrtData.schema.js
+│  └─ region
+│     ├─ region.controller.js
+│     ├─ region.service.js
 │     └─ schema
-│        ├─ currentData.schema.js
-│        ├─ shortTermData.schema.js
-│        └─ utrSrtData.schema.js
+│        └─ regions.schema.js
 ├─ app.js
 ├─ config
 │  ├─ config.js
@@ -19,12 +25,15 @@ weatherapi
 │  ├─ redis.js
 │  └─ swagger.js
 ├─ docs
-│  ├─ getCurrentData.swagger.js
-│  ├─ getSrtTermData.swagger.js
-│  └─ getUtrSrtData.swagger.js
+│  ├─ forecasts
+│  │  ├─ getCurrentData.swagger.js
+│  │  ├─ getSrtTermData.swagger.js
+│  │  └─ getUtrSrtData.swagger.js
+│  └─ regions
+│     ├─ getRegions.swagger.js
+│     └─ postRegions.swagger.js
 ├─ middleware
-│  ├─ errorHandler.middleware.js
-│  └─ requestValidation.middleware.js
+│  └─ errorHandler.middleware.js
 ├─ models
 │  ├─ current.model.js
 │  └─ region.model.js
@@ -58,6 +67,9 @@ weatherapi
 - npm run start:dev-pm2 -> pm2로 실행하기
 
 
+# 사용 기술
+- server : express
+- DB : MongoDB, Redis
 
 ## 예보 코드값 정보
 
@@ -66,8 +78,7 @@ weatherapi
 
 
 ## API 요청
-![image](https://github.com/ehdclr/weather-api-app/assets/80464000/5e292b5c-3ca2-4cf2-9eb1-5ef696d3d81f)
-
+![image](https://github.com/ehdclr/weather-api-app/assets/80464000/6bdf6da3-effb-47e0-81e8-203b6ca7f9fc)
 
 - swagger url : [swagger-api-docs](http://52.141.48.49:8000/api-docs/)
 
@@ -83,6 +94,14 @@ weatherapi
        - 날씨 데이터
        - 날씨 코드 : 날씨 값
 
+<br>
+<br>
+
+![image](https://github.com/ehdclr/weather-api-app/assets/80464000/b59e608f-828d-40d1-9abe-4dfde9c6cf35)
+- schema 구조
+  - 초단기 실황 데이터를 수집할 지역
+  - regionName: 수집할 지역
+
 
 ## 예보 데이터 API
 <details>
@@ -91,17 +110,21 @@ weatherapi
     <ul>
        <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/221f1abe-6b40-4ea3-91b8-b9972ea6f66c" width=70%>
        <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/c22fd71f-f039-4440-998f-1978a1c703b2" width=70%>
-      <li>초단기 실황 데이터 - 1시간 기준으로 공공 api 요청 (node-cron)사용  </li>
+      <li>초단기 실황 데이터(/api/forecasts/current[GET]) - 1시간 기준으로 공공 api 요청 (node-cron)사용  </li>
        <p>서울시, 경기도, 제주도 초단기 실황 데이터를 1시간 기준으로 누적 (매 시간 40분마다 api 요청 제공) cron으로 주기적으로 데이터 요청</p>
       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/5a651058-c7c3-4ce2-9850-89e44001cf42" width=70%>
-      <li>초단기 데이터 - 1시간 기준으로 공공 api 요청</li>
+      <li>초단기 데이터(/api/forecasts/utrsrt[GET]) - 1시간 기준으로 공공 api 요청</li>
       <p>단기 예보 데이터 1시간 기준으로 업데이트 (매 시간 45분마다 api 요청 제공)
       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/0a71ad49-5902-4a3a-bc7e-cc1f85bda455" width=70%>
-      <li>단기 예보 데이터 - 3시간 기준으로 공공 api 요청</li>
+      <li>단기 예보 데이터(/api/forecasts/utrsrt[GET]) - 3시간 기준으로 공공 api 요청</li>
       <p>단기 예보 데이터 3시간 기준으로 업데이트</p>
     </ul>
   </div>
 </details> 
+
+### 지역 API
+- /api/regions (POST) : 초단기 실황 데이터 로그를 저장할 지역 추가
+- /api/regions (GET) : 로그 수집중인 지역 리스트 목록 보여주기
 
 ## 특이 사항
 - redis ttl 값을 각 api 제공시간에 맞춰 공공 api 데이터를 만료 (공공 api 요청시)
@@ -130,12 +153,12 @@ weatherapi
   - mongodb 스키마의 ttl을 2일을 주어, 초단기 실황 데이터를 현재 기준에서 2일전까지만 저장하도록함
 
 
-## 성능 개선 
+## 성능 개선
 - redis cache를 통한 응답 데이터 시간 감소 (upstash 사용)
    - 초단기 실황 API
-    - 공공 API 요청시 : 약 1.4초
-    - redis cache 요청시 : 약 0.4초 ~0.6초 (약 60% 속도 향상)
-    - database 요청시 : 약 0.6초 ~ 0.8초
+     - 공공 API 요청시 : 약 1.4초
+     - redis cache 요청시 : 약 0.4초 ~0.6초 (약 60% 속도 향상)
+     - database 요청시 : 약 0.6초 ~ 0.8초
 
    - 초단기 예보 데이터 API
      - 공공 API 요청시 : 약 1.4초
@@ -143,7 +166,7 @@ weatherapi
     
    - 단기 예보 데이터 API
      - 공공 API 요청시 : 약 2초 ~ 4초
-     - redis cache 요청시 : 0.5초 ~0.7초 (약 70~ 80% 속도 개선)
+     - redis cache 요청시 : 0.5초 ~ 0.7초 (약 70~ 80% 속도 개선)
 
 ## 시퀀스 다이어그램
 <details>
@@ -156,6 +179,10 @@ weatherapi
       <li>초단기 데이터 시퀀스 다이어그램</li>
       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/fbf968c2-b956-4721-bca8-a22d771381c0" width=70%>
       <li>단기 예보 데이터 시퀀스 다이어그램</li>
+      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/7f196dac-07ac-484f-8f6f-24711c963852" width=70%>
+      <li>도시의 초단기 실황 데이터 누적하기위한 지역추가 시퀀스 다이어그램</li>
+       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/b30cbbcd-8fd8-43a7-bc6c-8ece5449f2bf" width=70%>
+      <li>수집하고 있는 도시들 목록 보여주기</li>
     </ul>
   </div>
 </details> 
@@ -165,3 +192,5 @@ weatherapi
 - xlsx 파일을 기준으로 도시명을 가져오기 때문에, 유사 검색으로는 되지 않음
 - 초단기 실황 ,초단기 데이터, 단기 데이터만을 가져오는 api만 구성
 - 추가적인 로직 필요시 업데이트
+
+
