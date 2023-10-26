@@ -6,17 +6,18 @@
  *     tags:
  *       - Region
  *     description: 지정된 도시의 수집 지역 정보를 삭제합니다.
- *     parameters:
- *       - in: body
- *         name: city
- *         description: 삭제할 도시 이름
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             city:
- *               type: string
- *               example: 경상남도
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              city:
+ *                type: string
+ *                description: 삭제하려는 도시의 이름.
+ *            example: 
+ *              city: 경상남도
  *     responses:
  *       200:
  *         description: 도시의 수집 지역 정보가 성공적으로 삭제됨.
