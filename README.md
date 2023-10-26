@@ -3,14 +3,20 @@
 ```
 weatherapi
 ├─ .eslintrc.json
+├─ README.md
 ├─ apis
-│  └─ forecast
-│     ├─ forcast.service.js
-│     ├─ forecast.controller.js
+│  ├─ forecast
+│  │  ├─ forcast.service.js
+│  │  ├─ forecast.controller.js
+│  │  └─ schema
+│  │     ├─ currentData.schema.js
+│  │     ├─ shortTermData.schema.js
+│  │     └─ utrSrtData.schema.js
+│  └─ region
+│     ├─ region.controller.js
+│     ├─ region.service.js
 │     └─ schema
-│        ├─ currentData.schema.js
-│        ├─ shortTermData.schema.js
-│        └─ utrSrtData.schema.js
+│        └─ regions.schema.js
 ├─ app.js
 ├─ config
 │  ├─ config.js
@@ -19,12 +25,15 @@ weatherapi
 │  ├─ redis.js
 │  └─ swagger.js
 ├─ docs
-│  ├─ getCurrentData.swagger.js
-│  ├─ getSrtTermData.swagger.js
-│  └─ getUtrSrtData.swagger.js
+│  ├─ forecasts
+│  │  ├─ getCurrentData.swagger.js
+│  │  ├─ getSrtTermData.swagger.js
+│  │  └─ getUtrSrtData.swagger.js
+│  └─ regions
+│     ├─ getRegions.swagger.js
+│     └─ postRegions.swagger.js
 ├─ middleware
-│  ├─ errorHandler.middleware.js
-│  └─ requestValidation.middleware.js
+│  └─ errorHandler.middleware.js
 ├─ models
 │  ├─ current.model.js
 │  └─ region.model.js
@@ -177,3 +186,4 @@ weatherapi
 - xlsx 파일을 기준으로 도시명을 가져오기 때문에, 유사 검색으로는 되지 않음
 - 초단기 실황 ,초단기 데이터, 단기 데이터만을 가져오는 api만 구성
 - 추가적인 로직 필요시 업데이트
+

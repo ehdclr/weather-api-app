@@ -76,7 +76,6 @@ export const getUtrSrtData = async (city) => {
       logger.error("도시를 제대로 입력해주세요!");
       throw new NotFoundError("해당 도시를 찾을 수 없습니다!");
     }
-
     const cacheKey = `utrSrtData_${cityFullName}`;
     let utrSrtData = await getCacheData(cacheKey);
 
@@ -87,9 +86,6 @@ export const getUtrSrtData = async (city) => {
       let { x, y } = dfs_xy_conv("toXY", lat, lng);
       const API_ENDPOINT = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${x}&ny=${y}`;
       const fetchedData = await fetchRequest.fetchData(API_ENDPOINT);
-
-      console.log(baseTime, baseDate, "ㅋㅋ");
-
       if (!fetchedData || !fetchedData.response || !fetchedData.response.body) {
         logger.error("공공 날씨 API를 fetch에 실패하였습니다![초단기 데이터]"); // 에러 로깅
         throw new NotFoundError("데이터 요청에 실패하였습니다.");
@@ -160,7 +156,7 @@ export const getSrtTermData = async (city) => {
       cityName: cityFullName,
       forecast: {},
     };
-
+ 
     shortTermData.map((item) => {
       const { fcstDate, fcstTime, category, fcstValue } = item;
 
@@ -176,6 +172,7 @@ export const getSrtTermData = async (city) => {
     });
 
     validate(shortTermForecastDataSchema, resultObj);
+    console.log(validate(shortTermForecastDataSchema, resultObj))
 
     logger.info("단기 데이터 응답에 성공하였습니다!");
     return resultObj;
@@ -184,4 +181,3 @@ export const getSrtTermData = async (city) => {
     throw err;
   }
 };
-

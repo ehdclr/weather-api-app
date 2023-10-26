@@ -28,6 +28,7 @@
  *                   items:
  *                     type: string
  *                   example: ["제주특별자치도", "서울특별시", "경기도"]
+ *  
  *       404:
  *         description: 수집하고 있는 도시가 없을 때의 응답
  *       500:
