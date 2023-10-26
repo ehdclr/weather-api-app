@@ -67,6 +67,9 @@ weatherapi
 - npm run start:dev-pm2 -> pm2로 실행하기
 
 
+# 사용 기술
+- server : express
+- DB : MongoDB, Redis
 
 ## 예보 코드값 정보
 
@@ -91,6 +94,9 @@ weatherapi
        - 날씨 데이터
        - 날씨 코드 : 날씨 값
 
+<br>
+<br>
+
 ![image](https://github.com/ehdclr/weather-api-app/assets/80464000/b59e608f-828d-40d1-9abe-4dfde9c6cf35)
 - schema 구조
   - 초단기 실황 데이터를 수집할 지역
@@ -104,19 +110,19 @@ weatherapi
     <ul>
        <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/221f1abe-6b40-4ea3-91b8-b9972ea6f66c" width=70%>
        <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/c22fd71f-f039-4440-998f-1978a1c703b2" width=70%>
-      <li>초단기 실황 데이터 - 1시간 기준으로 공공 api 요청 (node-cron)사용  </li>
+      <li>초단기 실황 데이터(/api/forecasts/current[GET]) - 1시간 기준으로 공공 api 요청 (node-cron)사용  </li>
        <p>서울시, 경기도, 제주도 초단기 실황 데이터를 1시간 기준으로 누적 (매 시간 40분마다 api 요청 제공) cron으로 주기적으로 데이터 요청</p>
       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/5a651058-c7c3-4ce2-9850-89e44001cf42" width=70%>
-      <li>초단기 데이터 - 1시간 기준으로 공공 api 요청</li>
+      <li>초단기 데이터(/api/forecasts/utrsrt[GET]) - 1시간 기준으로 공공 api 요청</li>
       <p>단기 예보 데이터 1시간 기준으로 업데이트 (매 시간 45분마다 api 요청 제공)
       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/0a71ad49-5902-4a3a-bc7e-cc1f85bda455" width=70%>
-      <li>단기 예보 데이터 - 3시간 기준으로 공공 api 요청</li>
+      <li>단기 예보 데이터(/api/forecasts/utrsrt[GET]) - 3시간 기준으로 공공 api 요청</li>
       <p>단기 예보 데이터 3시간 기준으로 업데이트</p>
     </ul>
   </div>
 </details> 
 
-<h3>지역 API</h3>
+### 지역 API
 - /api/regions (POST) : 초단기 실황 데이터 로그를 저장할 지역 추가
 - /api/regions (GET) : 로그 수집중인 지역 리스트 목록 보여주기
 
@@ -186,4 +192,5 @@ weatherapi
 - xlsx 파일을 기준으로 도시명을 가져오기 때문에, 유사 검색으로는 되지 않음
 - 초단기 실황 ,초단기 데이터, 단기 데이터만을 가져오는 api만 구성
 - 추가적인 로직 필요시 업데이트
+
 
