@@ -23,3 +23,8 @@ export class HttpError extends Error {
     }
   }
   
+  export class Unauthorization extends HttpError {
+    constructor(message = "Unauthorized"){
+      super(401,message);
+    }
+  }
