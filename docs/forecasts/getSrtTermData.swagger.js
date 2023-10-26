@@ -57,7 +57,6 @@
  * components:
  *   schemas:
  *     shortTerm-WeatherData:
- *     shortTerm-WeatherData:
  *       type: object
  *       properties:
  *         TMP:
@@ -96,12 +95,6 @@
  *         SNO:
  *           type: string
  *           example: "적설없음"
- *         TMN:
- *           type: string
- *           example: "12.5"
- *         TMX:
- *           type: string
- *           example: "27.5"
  *         TMN:
  *           type: string
  *           example: "12.5"
