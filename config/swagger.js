@@ -11,10 +11,10 @@ const swaggerOptions = {
     basePath: "/",
     components: {
       securitySchemes: {
-        cookieAuth: {
-          type: "apiKey",
-          in: "cookie",
-          name: "connect.sid", // 쿠키 이름 (세션 ID를 포함한 쿠키)
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT", // 쿠키 이름 (세션 ID를 포함한 쿠키)
         },
       },
     },

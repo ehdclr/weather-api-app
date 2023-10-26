@@ -1,6 +1,7 @@
 import express from 'express';
 import { adminController } from '../apis/admin/admin.controller.js';
-import authSession from '../middleware/auth.middleware.js';
+import authJwt from '../middleware/auth.middleware.js';
+
 
 
 
@@ -13,9 +14,7 @@ const router = express.Router();
  *   descripiton: 관리자 api
  */
 
-router.post('/admin/login',authSession,adminController.login);
-
-router.post('/admin/logout',authSession,adminController.logout);
+router.post('/admin/login',adminController.login);
 
 
 export default router;

@@ -1,6 +1,7 @@
 import express from 'express';
 import { regionController } from '../apis/region/region.controller.js';
-import authSession from '../middleware/auth.middleware.js';
+import authJwt from '../middleware/auth.middleware.js';
+
 
 
 const router = express.Router();
@@ -13,13 +14,13 @@ const router = express.Router();
  */
 
 //수집할 지역의 추가 (실시간 실황 데이터 수집)
-router.post('/regions',authSession,regionController.addRegion);
+router.post('/regions',authJwt,regionController.addRegion);
 
 //실시간 데이터 조회하는 (실시간 실황 데이터 수집)
 router.get('/regions',regionController.getRegions)
 
 //수집할 지역 삭제하는 라우터 
-router.delete('/regions',authSession,regionController.deleteRegion);
+router.delete('/regions',authJwt,regionController.deleteRegion);
 
 
 export default router;

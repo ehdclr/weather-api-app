@@ -4,7 +4,7 @@
  *   post:
  *     summary: 수집할 지역의 추가 (실시간 실황 데이터 수집)
  *     security:
- *      - cookieAuth: []
+ *      - bearerAuth: []
  *     description: 새로운 지역을 수집할 지역 목록에 추가합니다.
  *     tags:
  *       - Region

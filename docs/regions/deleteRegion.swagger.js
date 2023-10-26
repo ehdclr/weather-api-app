@@ -4,7 +4,7 @@
  *   delete:
  *     summary: 수집 지역 삭제
  *     security:
- *       - cookieAuth: []
+ *       - bearerAuth: []
  *     tags:
  *       - Region
  *     description: 지정된 도시의 수집 지역 정보를 삭제합니다.
