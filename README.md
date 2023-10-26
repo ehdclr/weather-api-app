@@ -110,7 +110,7 @@ weatherapi
 <br>
 
 ![image](https://github.com/ehdclr/weather-api-app/assets/80464000/b59e608f-828d-40d1-9abe-4dfde9c6cf35)
-- schema 구조
+- schema 구조 (region)
   - 초단기 실황 데이터를 수집할 지역
   - regionName: 수집할 지역
 
