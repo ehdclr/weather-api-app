@@ -2,6 +2,8 @@
  * @swagger
  * /api/admin/logout:
  *   post:
+ *     security:
+ *      - cookieAuth: [] 
  *     summary: 관리자 로그아웃
  *     tags: [Admin]
  *     responses:
