@@ -31,7 +31,7 @@ export const adminController = {
       }
       const adminName = req.session.admin.username;
       req.session.destroy();
-      res.clearCookie("sid");
+      res.clearCookie("connect.sid");
       return res
         .status(200)
         .json(

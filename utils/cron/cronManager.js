@@ -10,6 +10,7 @@ export const startCronJobs = async () => {
   //초단기 실황 데이터 cron 작업  (10분마다 데이터 업데이트 - 공공 api 공식 문서)
   cron.schedule(
     "0 */10 * * * *",
+    // "* * * * * *",
     async () => {
       const regions = await RegionModel.find();
 

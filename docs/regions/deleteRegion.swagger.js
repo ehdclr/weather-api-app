@@ -3,6 +3,8 @@
  * /api/regions:
  *   delete:
  *     summary: 수집 지역 삭제
+ *     security:
+ *       - cookieAuth: []
  *     tags:
  *       - Region
  *     description: 지정된 도시의 수집 지역 정보를 삭제합니다.
@@ -27,4 +29,5 @@
  *         description: |
  *          - 요청한 도시가 발견되지 않음.
  *          - 도시의 fullName을 찾을 수 없을 때(xlsx파일 참조)
+ * 
  */
