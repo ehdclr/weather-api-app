@@ -196,10 +196,12 @@ weatherapi
       <li>초단기 데이터 시퀀스 다이어그램</li>
       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/fbf968c2-b956-4721-bca8-a22d771381c0" width=70%>
       <li>단기 예보 데이터 시퀀스 다이어그램</li>
-      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/7f196dac-07ac-484f-8f6f-24711c963852" width=70%>
+      <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/aeedfa81-7e82-4a03-bb78-9344c0367d5f" width=70%>
       <li>도시의 초단기 실황 데이터 누적하기위한 지역추가 시퀀스 다이어그램</li>
        <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/b30cbbcd-8fd8-43a7-bc6c-8ece5449f2bf" width=70%>
       <li>수집하고 있는 도시들 목록 보여주기</li>
+       <img src="https://github.com/ehdclr/weather-api-app/assets/80464000/c5fc5591-d07c-4568-8b4d-2e3b1b1876ef" width=70%>
+       <li>수집 중인 도시를 삭제하기 위한 시퀀스 다이어그램</li>
     </ul>
   </div>
 </details> 
